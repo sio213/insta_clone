@@ -1,0 +1,15 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+  DisplayCopNames: true
+
+Metrics/AbcSize:
+  Max: 25
