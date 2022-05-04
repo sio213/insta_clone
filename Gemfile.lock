@@ -79,9 +79,6 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
-    hpricot (0.8.6)
-    html2slim (0.2.0)
-      hpricot
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.1)
@@ -207,7 +204,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  html2slim
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mysql2
