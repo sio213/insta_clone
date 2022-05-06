@@ -1,0 +1,72 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+  DisplayCopNames: true
+
+Rails:
+  Enabled: true
+
+##################### Layout ##################################
+
+Layout/MultilineBlockLayout:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+##################### Metrics ##################################
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - 'Gemfile'
+    - 'config/**/*'
+    - 'spec/**/*_spec.rb'
+    - 'lib/tasks/*'
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 300
+
+# 循環的複雑度
+# プログラムの複雑度を示す値で、線形的に独立した経路の数を示している
+Metrics/CyclomaticComplexity:
+  Max: 30
+
+##################### Style ##################################
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# 「frozen_string_literal: true」の記述は不要
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+##################### Rails ##################################
+
+# html_safeやraw等で呼び出していないかチェックする
+Rails/OutputSafety:
+  Enabled: true

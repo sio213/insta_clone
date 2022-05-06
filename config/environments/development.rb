@@ -14,7 +14,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
@@ -29,6 +29,8 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -58,4 +60,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.session_store :redis_store, servers: 'redis://localhost:6379', expire_after: 1.day
 end
