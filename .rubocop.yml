@@ -22,6 +22,9 @@ Layout/MultilineBlockLayout:
 
 ##################### Metrics ##################################
 
+Metrics/LineLength:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 25
 
