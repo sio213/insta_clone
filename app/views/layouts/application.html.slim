@@ -8,17 +8,6 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    header
-      nav
-        - if user_signed_in?
-          = link_to 'プロフィール変更', edit_user_registration_path
-          = link_to 'ログアウト', logout_path, method: :delete
-        - else
-          = link_to '新規登録', signup_path
-          = link_to 'ログイン', login_path
-
-    .alert.alert-primary
-      = notice
-    .alert.alert-warning
-      = alert
+    = render 'shared/header'
+    = render 'shared/flush_messages'
     = yield
