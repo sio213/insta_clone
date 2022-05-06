@@ -17,8 +17,8 @@ html
           = link_to '新規登録', signup_path
           = link_to 'ログイン', login_path
 
-    p.notice
+    .alert.alert-primary
       = notice
-    p.alert
+    .alert.alert-warning
       = alert
     = yield
