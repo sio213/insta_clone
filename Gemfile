@@ -38,6 +38,7 @@ gem 'annotate'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'font-awesome-sass', '~> 6.1.1'
 gem 'jquery-rails'
 gem 'redis-rails'
 

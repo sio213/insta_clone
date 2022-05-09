@@ -6,9 +6,9 @@
       - if current_user&.own?(post)
         .ml-auto
           = link_to post, class: 'mr-3', method: :delete, data: { confirm: '本当に削除してもよろしいでしょうか？' } do
-            | 削除
+            = icon 'far', 'trash-alt', class: 'fa-lg'
           = link_to edit_post_path(post) do
-            | 編集
+            = icon 'far', 'edit', class: 'fa-lg'
 
   .swiper
     .swiper-wrapper
