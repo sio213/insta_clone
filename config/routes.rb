@@ -33,4 +33,8 @@ Rails.application.routes.draw do
     get 'login', to: 'devise/sessions#new'
     delete 'logout', to: 'devise/sessions#destroy'
   end
+
+  root 'posts#new'
+
+  resources :posts, only: [:index, :new, :create]
 end
