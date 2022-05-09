@@ -7,6 +7,8 @@
         .ml-auto
           = link_to post, class: 'mr-3', method: :delete, data: { confirm: '本当に削除してもよろしいでしょうか？' } do
             | 削除
+          = link_to edit_post_path(post) do
+            | 編集
 
   .swiper
     .swiper-wrapper
