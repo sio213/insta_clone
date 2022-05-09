@@ -44,6 +44,7 @@ gem 'redis-rails'
 
 group :development, :test do
   gem 'debug'
+  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end

@@ -19,6 +19,10 @@ module InstaClone
     config.generators do |g|
       g.assets false
       g.helper false
+      g.test_framework false
     end
+
+    # ダミーデータ作成は日本語を設定
+    Faker::Config.locale = :ja
   end
 end
