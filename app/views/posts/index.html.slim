@@ -2,3 +2,20 @@
   .row
     .col-md-8.col-12
       = render @posts
+    .col-md-4.col-12
+      .users-box
+        .card
+          .card-header
+            | ユーザー
+          .card-body
+            .user.mb-3
+              = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle mr-1'
+              | ダミー涼介
+            .user.mb-3
+              = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle mr-1'
+              | ダミー常松
+            .user.mb-3
+              = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle mr-1'
+              | ダミー誠
+          .card-footer
+            = link_to 'すべて見る', '#'
