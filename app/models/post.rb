@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text(65535)      not null
+#  images     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :bigint
@@ -17,6 +18,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Post < ApplicationRecord
+  mount_uploaders :images, PostImageUploader
+  serialize :images, JSON
+
   belongs_to :user
 
   validates :body, presence: true, length: { minimum: 1, maximum: 1000 }

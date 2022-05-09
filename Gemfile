@@ -35,11 +35,13 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'annotate'
+gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'font-awesome-sass', '~> 6.1.1'
 gem 'jquery-rails'
+gem 'mini_magick'
 gem 'redis-rails'
 
 group :development, :test do
