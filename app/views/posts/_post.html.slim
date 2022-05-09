@@ -10,12 +10,14 @@
           = link_to edit_post_path(post) do
             = icon 'far', 'edit', class: 'fa-lg'
 
-  .swiper
-    .swiper-wrapper
-      - post.images.each do |image|
-        .swiper-slide
-          = image_tag image.thumb.url, class: 'card-img-top', width: '100%'
+  = link_to post do
+    .swiper
+      .swiper-wrapper
+        - post.images.each do |image|
+          .swiper-slide
+            = image_tag image.thumb.url, class: 'card-img-top', width: '100%'
+      .swiper-pagination
 
-  .card-body
-    .card-text
-      = post.body
+    .card-body
+      .card-text
+        = post.body
