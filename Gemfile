@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.4'
+ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6'
@@ -35,14 +35,18 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'annotate'
+gem 'carrierwave'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'font-awesome-sass', '~> 6.1.1'
 gem 'jquery-rails'
+gem 'mini_magick'
 gem 'redis-rails'
 
 group :development, :test do
   gem 'debug'
+  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end

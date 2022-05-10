@@ -1,0 +1,17 @@
+.post-detail.card
+  .image-box
+    .swiper
+      .swiper-wrapper
+        - @post.images.each do |image|
+          .swiper-slide
+            = image_tag image.url
+      .swiper-pagination
+  .image-info-box
+    .profile-box.p-3
+      .d-flex.align-items-center
+        = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle mr-1'
+
+  hr.m-0
+    .post-body.p-3
+      .row.no-gutters
+        = simple_format(@post.body)
