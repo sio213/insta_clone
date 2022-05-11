@@ -2,11 +2,13 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @posts = Post.all
+    @posts = Post.all.page(params[:page])
   end
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.order(created_at: :desc)
   end
 
   def new
