@@ -20,6 +20,11 @@
 #                     login GET    /login(.:format)                                                                         devise/sessions#new
 #                    logout DELETE /logout(.:format)                                                                        devise/sessions#destroy
 #                      root GET    /                                                                                        posts#index
+#             post_comments POST   /posts/:post_id/comments(.:format)                                                       comments#create
+#         edit_post_comment GET    /posts/:post_id/comments/:id/edit(.:format)                                              comments#edit
+#              post_comment PATCH  /posts/:post_id/comments/:id(.:format)                                                   comments#update
+#                           PUT    /posts/:post_id/comments/:id(.:format)                                                   comments#update
+#                           DELETE /posts/:post_id/comments/:id(.:format)                                                   comments#destroy
 #                     posts GET    /posts(.:format)                                                                         posts#index
 #                           POST   /posts(.:format)                                                                         posts#create
 #                  new_post GET    /posts/new(.:format)                                                                     posts#new
@@ -48,4 +53,5 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
+  resources :likes, only: [:create, :destroy]
 end
