@@ -24,8 +24,33 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
+  has_many :followings, class_name: 'Relationship', foreign_key: 'following_id', dependent: :destroy
+  has_many :followers, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :following_users, through: :followings, source: :followed
 
   def own?(object)
     id == object.user_id
+  end
+
+  def like?(post)
+    like_posts.include?(post)
+  end
+
+  def like(post)
+    like_posts << post
+  end
+
+  def unlike(post)
+    like_posts.destroy(post)
+  end
+
+  def following?(user)
+    following_users.include?(user)
+  end
+
+  def follow(user)
+    following_users << user
   end
 end

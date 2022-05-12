@@ -18,6 +18,9 @@
             = image_tag image.thumb.url, class: 'card-img-top', width: '100%'
       .swiper-pagination
 
-    .card-body
-      .card-text
-        = post.body
+  .card-body
+    .card-text
+      = post.body
+    - if current_user && !current_user.own?(post)
+      .ml-auto
+        = render 'likes/like_area', post: post

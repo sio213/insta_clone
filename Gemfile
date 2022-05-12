@@ -43,6 +43,7 @@ gem 'font-awesome-sass', '~> 6.1.1'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
+gem 'popper_js'
 gem 'redis-rails'
 
 group :development, :test do

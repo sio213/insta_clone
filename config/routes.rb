@@ -1,6 +1,7 @@
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                                                                              Controller#Action
+#               users_index GET    /users/index(.:format)                                                                   users#index
 #          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
 #              user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
 #      destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
@@ -20,6 +21,13 @@
 #                     login GET    /login(.:format)                                                                         devise/sessions#new
 #                    logout DELETE /logout(.:format)                                                                        devise/sessions#destroy
 #                      root GET    /                                                                                        posts#index
+#                     users GET    /users(.:format)                                                                         users#index
+#                      user GET    /users/:id(.:format)                                                                     users#show
+#             post_comments POST   /posts/:post_id/comments(.:format)                                                       comments#create
+#         edit_post_comment GET    /posts/:post_id/comments/:id/edit(.:format)                                              comments#edit
+#              post_comment PATCH  /posts/:post_id/comments/:id(.:format)                                                   comments#update
+#                           PUT    /posts/:post_id/comments/:id(.:format)                                                   comments#update
+#                           DELETE /posts/:post_id/comments/:id(.:format)                                                   comments#destroy
 #                     posts GET    /posts(.:format)                                                                         posts#index
 #                           POST   /posts(.:format)                                                                         posts#create
 #                  new_post GET    /posts/new(.:format)                                                                     posts#new
@@ -28,6 +36,10 @@
 #                           PATCH  /posts/:id(.:format)                                                                     posts#update
 #                           PUT    /posts/:id(.:format)                                                                     posts#update
 #                           DELETE /posts/:id(.:format)                                                                     posts#destroy
+#                     likes POST   /likes(.:format)                                                                         likes#create
+#                      like DELETE /likes/:id(.:format)                                                                     likes#destroy
+#             relationships POST   /relationships(.:format)                                                                 relationships#create
+#              relationship DELETE /relationships/:id(.:format)                                                             relationships#destroy
 #        rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 # rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #        rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
@@ -45,7 +57,10 @@ Rails.application.routes.draw do
 
   root 'posts#index'
 
+  resources :users, only: [:index, :show]
   resources :posts do
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
+  resources :likes, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end
