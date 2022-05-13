@@ -6,6 +6,9 @@
           .text-center.mb-3
             = image_tag 'profile-placeholder.png', size: '100x100', class: 'rounded-circle mr-1'
           .profile.text-center.mb-3
-            | ユーザー名
+            = @user.username
           .text-center
             = render 'relationships/follow_area', user: @user
+          hr
+          .row
+            = render partial: 'posts/thumbnail_post', collection: @user.posts
