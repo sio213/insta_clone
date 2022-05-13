@@ -8,6 +8,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  username               :string(255)      not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -29,6 +30,8 @@ class User < ApplicationRecord
   has_many :followings, class_name: 'Relationship', foreign_key: 'following_id', dependent: :destroy
   has_many :followers, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following_users, through: :followings, source: :followed
+
+  validates :username, presence: true
 
   def own?(object)
     id == object.user_id

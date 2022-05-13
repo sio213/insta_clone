@@ -4,8 +4,7 @@ div id="comment-#{comment.id}"
       = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle'
     .col-9
       span.font-weight-bold.pr-1
-        | ユーザー名
-      = comment.body
+      = comment.user.username
     .col-1
       = link_to post_comment_path(@post, comment), class: 'mr-3', method: :delete, data: { confirm: '本当に削除しますか？' } do
         = icon 'far', 'trash-alt', class: 'fa-sm'

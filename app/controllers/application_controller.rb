@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
   add_flash_types :success, :info, :warning, :danger
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_search_posts_form
 
   unless Rails.env.development?
     rescue_from StandardError, with: :render500
     rescue_from ActiveRecord::RecordNotFound, with: :render404
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
+    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+    devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
+    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
 
   private
