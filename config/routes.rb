@@ -1,7 +1,6 @@
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                                                                              Controller#Action
-#               users_index GET    /users/index(.:format)                                                                   users#index
 #          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
 #              user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
 #      destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
@@ -28,6 +27,7 @@
 #              post_comment PATCH  /posts/:post_id/comments/:id(.:format)                                                   comments#update
 #                           PUT    /posts/:post_id/comments/:id(.:format)                                                   comments#update
 #                           DELETE /posts/:post_id/comments/:id(.:format)                                                   comments#destroy
+#              search_posts GET    /posts/search(.:format)                                                                  posts#search
 #                     posts GET    /posts(.:format)                                                                         posts#index
 #                           POST   /posts(.:format)                                                                         posts#create
 #                  new_post GET    /posts/new(.:format)                                                                     posts#new
@@ -60,6 +60,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :posts do
     resources :comments, only: [:create, :edit, :update, :destroy]
+
+    collection do
+      get :search
+    end
   end
   resources :likes, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
