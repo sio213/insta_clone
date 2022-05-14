@@ -3,6 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.page(params[:page])
+    @users = User.recent(5)
   end
 
   def show
