@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :string(255)
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  remember_created_at    :datetime
@@ -31,7 +32,11 @@ class User < ApplicationRecord
   has_many :followers, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following_users, through: :followings, source: :followed
 
+  mount_uploader :avatar, AvatarUploader
+
   validates :username, presence: true
+
+  scope :recent, ->(count) { order(created_at: :desc).limit(count) }
 
   def own?(object)
     id == object.user_id
