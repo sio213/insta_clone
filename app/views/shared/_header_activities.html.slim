@@ -1,0 +1,5 @@
+- if current_user.activities.any?
+  - current_user.activities.recent(10).each do |activity|
+    = render "mypage/activities/#{activity.action_type}", activity: activity
+  - if current_user.activities.size > 10
+    = link_to 'すべてを見る', mypage_activities_path, class: 'dropdown-item justify-content-center'

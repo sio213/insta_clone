@@ -19,6 +19,14 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Comment < ApplicationRecord
+  include Subject
+
   belongs_to :user
   belongs_to :post
+
+  private
+
+  def create_activity
+    Activity.create(subject: self, user: post.user, action_type: :commented_to_own_post)
+  end
 end

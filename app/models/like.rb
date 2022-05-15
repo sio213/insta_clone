@@ -20,8 +20,16 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Like < ApplicationRecord
+  include Subject
+
   belongs_to :user
   belongs_to :post
 
   validates :user_id, uniqueness: { scope: :post_id }
+
+  private
+
+  def create_activity
+    Activity.create(subject: self, user: post.user, action_type: :liked_to_own_post)
+  end
 end

@@ -19,8 +19,16 @@
 #  fk_rails_...  (following_id => users.id)
 #
 class Relationship < ApplicationRecord
+  include Subject
+
   belongs_to :following, class_name: 'User'
   belongs_to :followed, class_name: 'User'
 
   validates :following_id, uniqueness: { scope: :followed_id }
+
+  private
+
+  def create_activity
+    Activity.create(subject: self, user: followed, action_type: :followed_me)
+  end
 end
