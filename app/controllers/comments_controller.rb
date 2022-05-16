@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   def create
-    comment = current_user.comments.build(comment_params)
+    @comment = current_user.comments.build(comment_params)
 
-    if comment.save
+    if @comment.save
+      UserMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later
       redirect_to post_path(params[:post_id]), success: 'コメントを投稿しました'
     else
-      redirect_to post_path(params[:post_id]), alert: comment.errors.full_messages.first
+      redirect_to post_path(params[:post_id]), alert: @comment.errors.full_messages.first
     end
   end
 
