@@ -24,5 +24,7 @@ module InstaClone
 
     # ダミーデータ作成は日本語を設定
     Faker::Config.locale = :ja
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end

@@ -46,6 +46,8 @@ gem 'kaminari'
 gem 'mini_magick'
 gem 'popper_js'
 gem 'redis-rails'
+gem 'sidekiq'
+gem 'sinatra', require: false
 
 group :development, :test do
   gem 'debug'
