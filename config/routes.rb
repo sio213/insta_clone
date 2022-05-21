@@ -1,6 +1,8 @@
 # == Route Map
 #
 #                    Prefix Verb   URI Pattern                                                                              Controller#Action
+#         letter_opener_web        /letter_opener                                                                           LetterOpenerWeb::Engine
+#               sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
 #          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
 #              user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
 #      destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
@@ -45,11 +47,22 @@
 #            mypage_account PATCH  /mypage/account(.:format)                                                                mypage/accounts#update
 #                           PUT    /mypage/account(.:format)                                                                mypage/accounts#update
 #         mypage_activities GET    /mypage/activities(.:format)                                                             mypage/activities#index
+#       edit_mypage_setting GET    /mypage/setting/edit(.:format)                                                           mypage/settings#edit
+#            mypage_setting PATCH  /mypage/setting(.:format)                                                                mypage/settings#update
+#                           PUT    /mypage/setting(.:format)                                                                mypage/settings#update
 #        rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 # rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #        rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
 # update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
 #      rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
+#
+# Routes for LetterOpenerWeb::Engine:
+# clear_letters DELETE /clear(.:format)                 letter_opener_web/letters#clear
+# delete_letter DELETE /:id(.:format)                   letter_opener_web/letters#destroy
+#       letters GET    /                                letter_opener_web/letters#index
+#        letter GET    /:id(/:style)(.:format)          letter_opener_web/letters#show
+#               GET    /:id/attachments/:file(.:format) letter_opener_web/letters#attachment
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
@@ -85,5 +98,6 @@ Rails.application.routes.draw do
   namespace :mypage do
     resource :account, only: [:edit, :update]
     resources :activities, only: [:index]
+    resource :setting, only: [:edit, :update]
   end
 end

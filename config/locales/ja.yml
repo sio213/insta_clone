@@ -7,6 +7,10 @@ ja:
       post:
         images: 画像
         body: 内容
+      setting:
+        notification_on_comment: 'コメント時の通知メール'
+        notification_on_like: 'いいね時の通知メール'
+        notification_on_follow: 'フォロー時の通知メール'
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
