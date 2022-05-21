@@ -24,6 +24,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one :setting, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -36,6 +37,8 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   validates :username, presence: true
+
+  after_create :create_setting
 
   scope :recent, ->(count) { order(created_at: :desc).limit(count) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_14_100854) do
+ActiveRecord::Schema.define(version: 2022_05_20_141151) do
 
   create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "subject_type"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(version: 2022_05_14_100854) do
     t.index ["following_id"], name: "index_relationships_on_following_id"
   end
 
+  create_table "settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.boolean "notification_on_comment", default: true, null: false
+    t.boolean "notification_on_like", default: true, null: false
+    t.boolean "notification_on_follow", default: true, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,4 +93,5 @@ ActiveRecord::Schema.define(version: 2022_05_14_100854) do
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "following_id"
+  add_foreign_key "settings", "users"
 end
