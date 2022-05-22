@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_141151) do
+ActiveRecord::Schema.define(version: 2022_05_22_084710) do
 
   create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "subject_type"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 2022_05_20_141151) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notification_settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.boolean "notification_on_comment", default: true, null: false
+    t.boolean "notification_on_like", default: true, null: false
+    t.boolean "notification_on_follow", default: true, null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_settings_on_user_id"
+  end
+
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.text "body", null: false
     t.bigint "user_id"
@@ -60,16 +70,6 @@ ActiveRecord::Schema.define(version: 2022_05_20_141151) do
     t.datetime "updated_at", null: false
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["following_id"], name: "index_relationships_on_following_id"
-  end
-
-  create_table "settings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
-    t.boolean "notification_on_comment", default: true, null: false
-    t.boolean "notification_on_like", default: true, null: false
-    t.boolean "notification_on_follow", default: true, null: false
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -90,8 +90,8 @@ ActiveRecord::Schema.define(version: 2022_05_20_141151) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "notification_settings", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "following_id"
-  add_foreign_key "settings", "users"
 end

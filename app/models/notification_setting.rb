@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: settings
+# Table name: notification_settings
 #
 #  id                      :bigint           not null, primary key
 #  notification_on_comment :boolean          default(TRUE), not null
@@ -12,12 +12,12 @@
 #
 # Indexes
 #
-#  index_settings_on_user_id  (user_id)
+#  index_notification_settings_on_user_id  (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #
-class Setting < ApplicationRecord
+class NotificationSetting < ApplicationRecord
   belongs_to :user
 end
