@@ -24,7 +24,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :setting, dependent: :destroy
+  has_one :notification_setting, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true
 
-  after_create :create_setting
+  after_create :create_notification_setting
 
   scope :recent, ->(count) { order(created_at: :desc).limit(count) }
 
