@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.6.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6'
@@ -52,7 +52,9 @@ gem 'sinatra', require: false
 
 group :development, :test do
   gem 'debug'
+  gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rspec-rails', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end

@@ -5,6 +5,7 @@ ja:
       post: 投稿
     attributes:
       post:
+        user: ユーザー
         images: 画像
         body: 内容
       setting:
