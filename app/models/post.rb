@@ -25,7 +25,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :body, presence: true, length: { minimum: 1, maximum: 1000 }
+  validates :images, presence: true
 
   scope :body_contain, ->(word) { where('posts.body LIKE ?', "%#{word}%") }
-  scope :comment_contain, ->(word) { where('comments.body LIKE ?', "#{word}") }
+  scope :comment_contain, ->(word) { where('comments.body LIKE ?', "%#{word}%") }
 end

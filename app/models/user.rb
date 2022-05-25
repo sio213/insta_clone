@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :username, presence: true
+  validates :username, uniqueness: true, presence: true
 
   after_create :create_setting
 
