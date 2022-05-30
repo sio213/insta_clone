@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     rescue_from ActiveRecord::RecordNotFound, with: :render404
   end
 
+  def after_sign_in_path_for(resource)
+    posts_path
+  end
+
+  def after_sign_out_path_for(resource)
+    login_path
+  end
+
   protected
 
   def configure_permitted_parameters

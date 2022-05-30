@@ -1,8 +1,12 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all.page(params[:page])
+    @posts = if current_user
+               current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
+             else
+               Post.all.includes(:user).page(params[:page]).order(created_at: :desc)
+    end
     @users = User.recent(5)
   end
 

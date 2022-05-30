@@ -65,4 +65,8 @@ class User < ApplicationRecord
   def follow(user)
     following_users << user
   end
+
+  def feed
+    Post.where(user_id: following_user_ids << id)
+  end
 end
