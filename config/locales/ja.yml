@@ -8,6 +8,8 @@ ja:
         user: ユーザー
         images: 画像
         body: 内容
+      message:
+        body: 'メッセージ'
       setting:
         notification_on_comment: 'コメント時の通知メール'
         notification_on_like: 'いいね時の通知メール'

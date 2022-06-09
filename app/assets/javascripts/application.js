@@ -18,4 +18,6 @@
 //= require swiper.js
 //= require activestorage
 //= require turbolinks
+//= require cable
+//= require cable/chatroom.js
 //= require_tree .
