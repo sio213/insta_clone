@@ -3,9 +3,9 @@
 #                           Prefix Verb   URI Pattern                                                                              Controller#Action
 #                letter_opener_web        /letter_opener                                                                           LetterOpenerWeb::Engine
 #                      sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
-#                 new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
-#                     user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
-#             destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
+#                 new_user_session GET    /users/sign_in(.:format)                                                                 users/sessions#new
+#                     user_session POST   /users/sign_in(.:format)                                                                 users/sessions#create
+#             destroy_user_session DELETE /users/sign_out(.:format)                                                                users/sessions#destroy
 #                new_user_password GET    /users/password/new(.:format)                                                            devise/passwords#new
 #               edit_user_password GET    /users/password/edit(.:format)                                                           devise/passwords#edit
 #                    user_password PATCH  /users/password(.:format)                                                                devise/passwords#update
@@ -19,8 +19,8 @@
 #                                  DELETE /users(.:format)                                                                         devise/registrations#destroy
 #                                  POST   /users(.:format)                                                                         devise/registrations#create
 #                           signup GET    /signup(.:format)                                                                        devise/registrations#new
-#                            login GET    /login(.:format)                                                                         devise/sessions#new
-#                           logout DELETE /logout(.:format)                                                                        devise/sessions#destroy
+#                            login GET    /login(.:format)                                                                         users/sessions#new
+#                           logout DELETE /logout(.:format)                                                                        users/sessions#destroy
 #                             root GET    /                                                                                        posts#index
 #                            users GET    /users(.:format)                                                                         users#index
 #                             user GET    /users/:id(.:format)                                                                     users#show
@@ -50,6 +50,17 @@
 # edit_mypage_notification_setting GET    /mypage/notification_setting/edit(.:format)                                              mypage/notification_settings#edit
 #      mypage_notification_setting PATCH  /mypage/notification_setting(.:format)                                                   mypage/notification_settings#update
 #                                  PUT    /mypage/notification_setting(.:format)                                                   mypage/notification_settings#update
+#                chatroom_messages GET    /chatrooms/:chatroom_id/messages(.:format)                                               messages#index
+#                                  POST   /chatrooms/:chatroom_id/messages(.:format)                                               messages#create
+#             new_chatroom_message GET    /chatrooms/:chatroom_id/messages/new(.:format)                                           messages#new
+#                     edit_message GET    /messages/:id/edit(.:format)                                                             messages#edit
+#                          message GET    /messages/:id(.:format)                                                                  messages#show
+#                                  PATCH  /messages/:id(.:format)                                                                  messages#update
+#                                  PUT    /messages/:id(.:format)                                                                  messages#update
+#                                  DELETE /messages/:id(.:format)                                                                  messages#destroy
+#                        chatrooms GET    /chatrooms(.:format)                                                                     chatrooms#index
+#                                  POST   /chatrooms(.:format)                                                                     chatrooms#create
+#                         chatroom GET    /chatrooms/:id(.:format)                                                                 chatrooms#show
 #               rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
 #        rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
 #               rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
@@ -71,12 +82,14 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: '/sidekiq'
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
 
   devise_scope :user do
     get 'signup', to: 'devise/registrations#new'
-    get 'login', to: 'devise/sessions#new'
-    delete 'logout', to: 'devise/sessions#destroy'
+    get 'login', to: 'users/sessions#new'
+    delete 'logout', to: 'users/sessions#destroy'
   end
 
   root 'posts#index'
@@ -99,5 +112,9 @@ Rails.application.routes.draw do
     resource :account, only: [:edit, :update]
     resources :activities, only: [:index]
     resource :notification_setting, only: [:edit, :update]
+  end
+
+  resources :chatrooms, only: [:index, :create, :show], shallow: true do
+    resources :messages
   end
 end

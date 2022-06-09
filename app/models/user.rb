@@ -33,6 +33,9 @@ class User < ApplicationRecord
   has_many :followers, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following_users, through: :followings, source: :followed
   has_many :activities, dependent: :destroy
+  has_many :chatroom_users, dependent: :destroy
+  has_many :chatrooms, through: :chatroom_users
+  has_many :messages, dependent: :destroy
 
   mount_uploader :avatar, AvatarUploader
 
