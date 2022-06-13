@@ -1,0 +1,29 @@
+.border.p-3
+  h2.h5
+    | 現在登録中のカード情報
+  .table-responsive.mb-3
+    table.table.table-bordered
+      tbody
+        tr
+          th
+            | 名義
+          td
+            = @card.name
+        tr
+          th
+            | カード番号
+          td
+            = "xxxx-xxxx-xxxx-#{@card.last4}"
+        tr
+          th
+            | 有効期限
+          td
+            = "#{@card.exp_year}/#{@card.exp_month}"
+  h2.h5
+    | カードを変更する場合はこちら
+  = form_with url: mypage_creditcard_path, method: :patch, class: 'mb-3', local: true do |f|
+    script type= "text/javascript" src= "https://checkout.pay.jp/" class= "payjp-button" data-key= "#{Settings.payjp.dig(:pk)}" data-partial= "true"
+
+    = f.submit '変更する'
+  .small
+    | ※現在登録中のカードは削除されます
