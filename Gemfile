@@ -46,11 +46,13 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'meta-tags'
 gem 'mini_magick'
+gem 'payjp'
 gem 'popper_js'
 gem 'redis-rails'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'debug'

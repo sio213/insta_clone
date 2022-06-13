@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_03_113427) do
+ActiveRecord::Schema.define(version: 2022_06_13_015814) do
 
   create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "subject_type"
@@ -49,6 +49,23 @@ ActiveRecord::Schema.define(version: 2022_06_03_113427) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "contract_cancellations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "contract_id"
+    t.integer "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_contract_cancellations_on_contract_id"
+  end
+
+  create_table "contracts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_contracts_on_plan_id"
+    t.index ["user_id"], name: "index_contracts_on_user_id"
+  end
+
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "post_id"
@@ -79,6 +96,25 @@ ActiveRecord::Schema.define(version: 2022_06_03_113427) do
     t.index ["user_id"], name: "index_notification_settings_on_user_id"
   end
 
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "contract_id"
+    t.string "charge_id", null: false
+    t.date "current_period_start", null: false
+    t.date "current_period_end", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_payments_on_contract_id"
+  end
+
+  create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "name", null: false
+    t.integer "price", null: false
+    t.integer "interval", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.text "body", null: false
     t.bigint "user_id"
@@ -107,6 +143,7 @@ ActiveRecord::Schema.define(version: 2022_06_03_113427) do
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.string "avatar"
+    t.string "customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -115,11 +152,15 @@ ActiveRecord::Schema.define(version: 2022_06_03_113427) do
   add_foreign_key "chatroom_users", "chatrooms"
   add_foreign_key "chatroom_users", "users"
   add_foreign_key "comments", "users"
+  add_foreign_key "contract_cancellations", "contracts"
+  add_foreign_key "contracts", "plans"
+  add_foreign_key "contracts", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "notification_settings", "users"
+  add_foreign_key "payments", "contracts"
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "following_id"

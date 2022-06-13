@@ -1,0 +1,5 @@
+| クレジットカード登録
+= form_with url: mypage_creditcard_path, local: true do |f|
+  script type= "text/javascript" src= "https://checkout.pay.jp/" class= "payjp-button" data-key= "#{Settings.payjp.dig(:pk)}" data-partial= "true"
+
+  = f.submit
